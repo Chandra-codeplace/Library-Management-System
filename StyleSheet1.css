@@ -1,0 +1,32 @@
+﻿/* Adjusted Custom Styles */
+
+/* Divider Line */
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+/* Container Height Customization */
+.h-custom {
+    height: calc(100% - 73px);
+}
+
+@media (max-width: 450px) {
+    .h-custom {
+        height: 100%;
+    }
+}
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+    .form-header h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
