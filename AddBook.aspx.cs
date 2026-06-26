@@ -19,6 +19,7 @@ namespace WebApplication1
             string isbn = Request.Form["isbn"];
             string pubyrStr = Request.Form["pubyr"];
             string availability = Request.Form["availability"]; // Expected values: "yes" or "no"
+            string selectedCourse = ddlCourse.SelectedValue;
 
             // Convert availability to bit (1 for "yes", 0 for "no")
             int availabilityBit = (availability == "yes") ? 1 : 0;
@@ -30,8 +31,8 @@ namespace WebApplication1
                 string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["LibreryDbConnection"].ConnectionString;
 
                 // SQL query to insert data into the database
-                string query = "INSERT INTO book (title, author, publisher, isbn, pub_year, availability) " +
-                               "VALUES (@title, @author, @publisher, @isbn, @pub_year, @availability)";
+                string query = "INSERT INTO book (title, author, publisher, isbn, pub_year, availability, course) " +
+                               "VALUES (@title, @author, @publisher, @isbn, @pub_year, @availability, @course)";
 
                 // Create a connection object
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -46,6 +47,7 @@ namespace WebApplication1
                         command.Parameters.AddWithValue("@isbn", isbn);
                         command.Parameters.AddWithValue("@pub_year", pubyr);
                         command.Parameters.AddWithValue("@availability", availabilityBit);
+                        command.Parameters.AddWithValue("@course", selectedCourse);
 
                         try
                         {

@@ -110,18 +110,6 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <%--<div class="sidebar">
-        <a href="Admindashboard.aspx"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="AddStudent.aspx"><i class="fas fa-user-plus"></i> Add Student</a>
-        <a href="AddBook.aspx"><i class="fas fa-book"></i> Add Book</a>
-        <a href="availablebook.aspx"><i class="fas fa-book"></i> Available Books</a>
-        <a href="ManageRequests.aspx"><i class="fas fa-list"></i> Book Requests</a>
-        <a href="OverdueBooks.aspx"><i class="fas fa-exclamation-circle"></i> Overdue Books</a>
-        <a href="IssueBook.aspx"><i class="fas fa-hand-holding"></i> Grant Issue Book</a>
-        <a href="TrackBook.aspx"><i class="fas fa-search"></i> Track Book Status</a>
-        <a href="adminlogout.aspx" class="text-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
-     </div>--%>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -135,6 +123,15 @@
                 <div class="form-group">
                     <label for="author">Author</label>
                     <input type="text" id="author" name="author" required>
+                </div>
+                <div class="form-group">
+                    <label for="ddlCourse">Course</label>
+                    <asp:DropDownList ID="ddlCourse" runat="server">
+                        <asp:ListItem Text="-- Select Course --" Value="" Selected="True"></asp:ListItem>
+                        <asp:ListItem Text="MBA" Value="MBA"></asp:ListItem>
+                        <asp:ListItem Text="MCA" Value="MCA"></asp:ListItem>
+                        <asp:ListItem Text="Other" Value="Other"></asp:ListItem>
+                    </asp:DropDownList>
                 </div>
                 <div class="form-group">
                     <label for="publisher">Publisher</label>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.UI;
 
 namespace WebApplication1
 {
@@ -10,15 +11,14 @@ namespace WebApplication1
         {
             if (!IsPostBack)
             {
-                LoadDashboardStats(); 
                 if (Session["AdminName"] != null)
                 {
                     lblAdminName.Text = Session["AdminName"].ToString();
-                    lblAdminNameContent.Text = Session["AdminName"].ToString();
+                    LoadDashboardStats();
                 }
                 else
                 {
-                    Response.Redirect("Login.aspx"); // Redirect to login if session expired
+                    Response.Redirect("Login.aspx");
                 }
             }
         }
@@ -33,52 +33,37 @@ namespace WebApplication1
                 {
                     conn.Open();
 
-                    // Get Total Students
+                    // Total Students
                     using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM student", conn))
                     {
-                        int StudentCount = (int)cmd.ExecuteScalar();
                         lblTotalStudents.Text = cmd.ExecuteScalar().ToString();
-                        Response.Write("Total Books: " + StudentCount);
                     }
 
-                    // Get Total Books
+                    // Total Books
                     using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM book", conn))
                     {
-                        int bookCount = (int)cmd.ExecuteScalar(); 
                         lblTotalBooks.Text = cmd.ExecuteScalar().ToString();
-                        Response.Write("Total Books: " + bookCount);
                     }
 
-                    // Get Total Issued Books
+                    // Total Issued Books
                     using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Borrow", conn))
                     {
-
-                        int IssuebookCount = (int)cmd.ExecuteScalar(); 
                         lblIssuedBooks.Text = cmd.ExecuteScalar().ToString();
-                        Response.Write("Total Books: " + IssuebookCount);
                     }
-
-                    // Get Total Reservations
-                    //using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM reservation", conn))
-                    //{
-                    //    int ReservationCount = (int)cmd.ExecuteScalar();
-                    //    lblTotalReservations.Text = cmd.ExecuteScalar().ToString();
-                    //    Response.Write("Total Books: " + ReservationCount);
-                    //}
                 }
                 catch (Exception ex)
                 {
-                    // Log error (Optional: Use logging framework)
-                    Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
+                    // Shows error as a popup instead of breaking layout
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showalert", "alert('Error loading stats: " + ex.Message + "');", true);
                 }
             }
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
         {
-            // Logout logic
             Session.Abandon();
-            Response.Redirect("WebForm1.aspx");
+            Session.Clear();
+            Response.Redirect("adminlogout.aspx"); // Aligned with your login redirect
         }
     }
 }
